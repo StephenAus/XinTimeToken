@@ -12,7 +12,7 @@ contract LockedPosition is ERC20, Ownable {
     uint256 public released = 0;
 
     /**
-    * @dev add account to partner list
+    * @dev update account to partner list
     * @return 
     */
     function partner(address from, address to, uint256 value) internal {
@@ -66,19 +66,18 @@ contract LockedPosition is ERC20, Ownable {
         publish = true;
     }
     /**
-     * @dev locked partners account
+     * @dev release position
      * @return 
      */
     function release(uint256 percent) external onlyOwner {
         require(percent <= 100 && percent > 0, "The released must be between 0 and 100");
-        require(percent > released, "released can only increase");
         released = percent;
     }
      /**
      * @dev get account position
      * @return bool
      */
-    function positionOf() external view returns(uint256) {
+    function getPosition() external view returns(uint256) {
         return _partners[msg.sender];
     }
 
@@ -86,7 +85,7 @@ contract LockedPosition is ERC20, Ownable {
      * @dev get account release
      * @return bool
      */
-    function releaseOf() external view returns(uint256) {
+    function getRelease() external view returns(uint256) {
         return _release[msg.sender];
     }
 
@@ -94,7 +93,7 @@ contract LockedPosition is ERC20, Ownable {
      * @dev get account position
      * @return bool
      */
-    function getPosition(address account) external onlyOwner view returns(uint256) {
+    function positionOf(address account) external onlyOwner view returns(uint256) {
         require(account != address(0), "The account address is empty");
         return _partners[account];
     }
@@ -103,15 +102,13 @@ contract LockedPosition is ERC20, Ownable {
      * @dev get account release
      * @return bool
      */
-    function getRelease(address account) external onlyOwner view returns(uint256) {
+    function releaseOf(address account) external onlyOwner view returns(uint256) {
         require(account != address(0), "The account address is empty");
         return _release[account];
     }
     
     
-
-
-    function transfer(address to, uint256 value) public  returns (bool) {
+    function transfer(address to, uint256 value) public returns (bool) {
         require(checkPosition(msg.sender, value), "Insufficient positions");
 
         partner(msg.sender, to, value);
@@ -119,7 +116,7 @@ contract LockedPosition is ERC20, Ownable {
         return super.transfer(to, value);
     }
 
-    function transferFrom(address from,address to, uint256 value) public  returns (bool) {
+    function transferFrom(address from,address to, uint256 value) public returns (bool) {
         require(checkPosition(from, value), "Insufficient positions");
 
         partner(from, to, value);
