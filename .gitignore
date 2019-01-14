@@ -1,0 +1,6 @@
+design
+tmp
+.DS_Store
+node_modules
+build
+INFO.md
