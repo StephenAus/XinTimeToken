@@ -1,9 +1,6 @@
 
 ### Github
 
-stephen.austin.au@gmail.com
-Rome@2018
-
 https://github.com/StephenAus/XinTimeToken
 
 
@@ -14,12 +11,6 @@ truffle deploy
 truffle-flattener contracts/XinTimeToken.sol > build/XinTimeToken.remix.sol
 
 
+XTT合约地址
 
-
-钱包
-https://trustwallet.com/
-
-添加 imToken
-https://support.token.im/hc/zh-cn/articles/360004345394
-https://shimo.im/docs/nKTCMRUhfyAEu2Su
-https://github.com/consenlabs/token-profile
+0xcb9a14d68cd0690b3696f42dcfdf609a67824736
