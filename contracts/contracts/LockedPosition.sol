@@ -55,7 +55,8 @@ contract LockedPosition is ERC20, Ownable {
             return true;
         }
         // 已经发行，锁定
-        return ((_partners[account]/100) * released) >= _release[account] + value;
+        return _balances(account) - value > (_partners[account] - _release[account]) 
+        // return ((_partners[account]/100) * released) >= _release[account] + value;
     }
 
     /**
@@ -66,11 +67,11 @@ contract LockedPosition is ERC20, Ownable {
         publish = true;
     }
     /**
-     * @dev release position
+     * @dev release position 设置释放率
      * @return 
      */
     function release(uint256 percent) external onlyOwner {
-        require(percent <= 100 && percent > 0, "The released must be between 0 and 100");
+        require(percent <= 100 && percent >= 0, "The released must be between 0 and 100");
         released = percent;
     }
      /**
